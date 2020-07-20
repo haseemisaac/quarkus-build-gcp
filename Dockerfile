@@ -10,8 +10,10 @@ ENV GRAALVM_HOME=$GRAALVM_HOME
 # -qq adds super duper quiet mode
 
 #Install GraalVM
-RUN apt-get update; apt-get -y install apt-utils gcc zlib1g-dev build-essential unzip wget; \
+RUN apt-get update; apt-get -y install apt-utils gcc zlib1g-dev build-essential unzip wget maven; \
     wget https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-20.1.0/${GRAALVM_PACKAGENAME}; \
     tar xvzf ${GRAALVM_PACKAGENAME}; \
     ${GRAALVM_HOME}/bin/gu install native-image; \
+    export PATH=${GRAALVM_HOME}/bin:$PATH; \
+    export JAVA_HOME=$GRAALVM_HOME; \
     apt-get clean
